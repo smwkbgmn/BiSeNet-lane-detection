@@ -56,7 +56,8 @@ class ModelDiagnostics:
 
         # Load dataset
         print(f"Loading dataset from {args.data_dir}")
-        # Try with JSON annotations first (on-the-fly mask generation)
+        # Use binary_mode when n_classes=2 (binary segmentation)
+        is_binary = (self.n_classes == 2)
         self.dataloader = get_lane_dataloader(
             root_dir=args.data_dir,
             batch_size=1,
@@ -65,7 +66,7 @@ class ModelDiagnostics:
             image_size=tuple(args.image_size),
             n_classes=self.n_classes,
             use_json=True,
-            binary_mode=False,
+            binary_mode=is_binary,
             lane_thickness=10
         )
 
@@ -406,17 +407,17 @@ class ModelDiagnostics:
 def parse_args():
     parser = argparse.ArgumentParser(description='Diagnose and evaluate BiSeNet model')
 
-    parser.add_argument('--checkpoint', type=str, required=True,
+    parser.add_argument('--checkpoint', '-c', type=str, required=True,
                        help='Path to model checkpoint')
-    parser.add_argument('--data_dir', type=str, required=True,
+    parser.add_argument('--data_dir', '-d', type=str, default="../peter/fine-tune3/dataset/original",
                        help='Path to evaluation dataset')
-    parser.add_argument('--output_dir', type=str, default='./diagnostics',
-                       help='Output directory for results')
+    parser.add_argument('--output_dir', '-o', type=str, default=None,
+                       help='Output directory for results (default: <checkpoint_dir>/../diagnostics)')
 
     # Model config
-    parser.add_argument('--n_classes', type=int, default=2,
+    parser.add_argument('--n_classes', '-n', type=int, default=2,
                        help='Number of classes')
-    parser.add_argument('--image_size', type=int, nargs=2, default=[512, 1024],
+    parser.add_argument('--image_size', '-i', type=int, nargs=2, default=[512, 1024],
                        help='Image size (height width)')
 
     # Diagnostics options
@@ -432,6 +433,15 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
+
+    # Auto-detect output directory from checkpoint path if not specified
+    if args.output_dir is None:
+        checkpoint_path = Path(args.checkpoint)
+        # Checkpoint is typically at: outputs/<experiment>/checkpoints/best_model.pth
+        # We want to save to: outputs/<experiment>/diagnostics/
+        experiment_dir = checkpoint_path.parent.parent
+        args.output_dir = str(experiment_dir / 'diagnostics')
+        print(f"Auto-detected output directory: {args.output_dir}")
 
     diagnostics = ModelDiagnostics(args)
     diagnostics.run_diagnostics()

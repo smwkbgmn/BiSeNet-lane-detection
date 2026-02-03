@@ -6,9 +6,10 @@
 set -e  # Exit on error
 
 # Configuration
-DATASET_DIR="../peter/fine-tune3/dataset/augmented2"
+DATASET_DIR="../peter/fine-tune3/dataset/augmented1"
+VAL_DIR="../peter/fine-tune3/dataset/original"  # Validation dataset (set to "" to disable)
 OUTPUT_BASE="./outputs"
-DATASET_OUTPUT="./datasets/lane_detection"
+DATASET_OUTPUT="../peter/fine-tune3/dataset/bisenet"
 N_CLASSES=2  # 2 for binary (lane vs background), 5 for multi-class (background + 4 lanes)
 BINARY_MODE=true  # true for binary, false for multi-class
 EPOCHS=100
@@ -56,8 +57,15 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 EXPERIMENT_NAME="bisenet_lane_${TIMESTAMP}"
 OUTPUT_DIR="$OUTPUT_BASE/$EXPERIMENT_NAME"
 
+VAL_ARG=""
+if [ -n "$VAL_DIR" ]; then
+    VAL_ARG="--val_dir $VAL_DIR"
+    echo -e "${YELLOW}Using validation set: $VAL_DIR${NC}"
+fi
+
 python train_lane_detection.py \
     --train_dir "$DATASET_OUTPUT" \
+    $VAL_ARG \
     --n_classes $N_CLASSES \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
@@ -75,13 +83,12 @@ echo -e "${YELLOW}Model saved to: $OUTPUT_DIR/checkpoints/${NC}"
 echo -e "\n${GREEN}[Step 3/3] Evaluating model...${NC}"
 
 CHECKPOINT="$OUTPUT_DIR/checkpoints/best_model.pth"
-DIAG_DIR="./diagnostics/$EXPERIMENT_NAME"
+DIAG_DIR="$OUTPUT_DIR/diagnostics"
 
 if [ -f "$CHECKPOINT" ]; then
-    python diagnose_model.py \
+    python diagnose.py \
         --checkpoint "$CHECKPOINT" \
         --data_dir "$DATASET_OUTPUT" \
-        --output_dir "$DIAG_DIR" \
         --n_classes $N_CLASSES \
         --image_size $IMAGE_H $IMAGE_W \
         --visualize \

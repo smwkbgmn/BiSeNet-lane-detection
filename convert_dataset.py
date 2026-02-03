@@ -147,6 +147,14 @@ def convert_dataset(input_dir, output_dir, binary_mode=False, thickness=10):
     print(f"Failed: {failed}")
     print(f"Masks saved to: {masks_dir}")
 
+    # Create symlink to source images directory
+    output_images_dir = output_path / 'images'
+    if not output_images_dir.exists():
+        output_images_dir.symlink_to(images_dir.resolve())
+        print(f"Images symlinked: {output_images_dir} -> {images_dir.resolve()}")
+    else:
+        print(f"Images directory already exists: {output_images_dir}")
+
     # Create a visualization of the first few masks
     visualize_samples(images_dir, masks_dir, output_path, num_samples=5)
 
