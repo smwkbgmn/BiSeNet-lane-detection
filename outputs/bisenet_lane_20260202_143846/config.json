@@ -1,0 +1,25 @@
+{
+  "train_dir": "./datasets/lane_detection",
+  "val_dir": null,
+  "use_json": false,
+  "n_classes": 5,
+  "image_size": [
+    512,
+    1024
+  ],
+  "epochs": 100,
+  "batch_size": 8,
+  "lr": 0.005,
+  "weight_decay": 0.0005,
+  "num_workers": 4,
+  "use_ohem": true,
+  "use_aux_loss": true,
+  "output_dir": "./outputs/bisenet_lane_20260202_143846",
+  "resume": null,
+  "save_interval": 10,
+  "val_interval": 1,
+  "use_wandb": false,
+  "wandb_project": "bisenet-lane-detection",
+  "experiment_name": "bisenet_lane_20260202_143846",
+  "log_interval": 10
+}

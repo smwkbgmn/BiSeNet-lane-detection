@@ -1,0 +1,108 @@
+{
+  "worst_samples": [
+    {
+      "miou": 0.2124772427812228,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0207.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0207.json"
+    },
+    {
+      "miou": 0.22068167949781317,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0220.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0220.json"
+    },
+    {
+      "miou": 0.22171398493273756,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0219.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0219.json"
+    },
+    {
+      "miou": 0.22532613435179857,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0218.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0218.json"
+    },
+    {
+      "miou": 0.2279220792856742,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0221.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0221.json"
+    },
+    {
+      "miou": 0.23115251290047092,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0217.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0217.json"
+    },
+    {
+      "miou": 0.2320632304403875,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0208.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0208.json"
+    },
+    {
+      "miou": 0.2345690478339471,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0222.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0222.json"
+    },
+    {
+      "miou": 0.23560992096372893,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0215.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0215.json"
+    },
+    {
+      "miou": 0.23604628154733667,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0224.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0224.json"
+    }
+  ],
+  "best_samples": [
+    {
+      "miou": 0.9654371732723681,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0251.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0251.json"
+    },
+    {
+      "miou": 0.9701814912432093,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0155.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0155.json"
+    },
+    {
+      "miou": 0.9711448835042781,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0249.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0249.json"
+    },
+    {
+      "miou": 0.9714489658708952,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0154.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0154.json"
+    },
+    {
+      "miou": 0.9721066534732175,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0151.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0151.json"
+    },
+    {
+      "miou": 0.9741197168756569,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0250.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0250.json"
+    },
+    {
+      "miou": 0.9769708306816637,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0037.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0037.json"
+    },
+    {
+      "miou": 0.9780012465337866,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0153.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0153.json"
+    },
+    {
+      "miou": 0.9814125919673211,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0058.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0058.json"
+    },
+    {
+      "miou": 0.9828699637452094,
+      "image_path": "../peter/fine-tune3/dataset/original/images/frame_0248.jpg",
+      "mask_path": "../peter/fine-tune3/dataset/original/annotations/frame_0248.json"
+    }
+  ],
+  "mean_miou": 0.38158985549760316,
+  "std_miou": 0.18030033638957105
+}
