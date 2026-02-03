@@ -103,7 +103,7 @@ venv.bak/
 .mypy_cache/
 
 
-## Coin: 
+## Coin:
 play.py
 preprocess_data.py
 res/
@@ -125,3 +125,7 @@ log*txt
 000000320425.jpg
 
 tvm/
+
+datasets/
+# diagnostics*
+outputs/
