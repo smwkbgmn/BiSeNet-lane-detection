@@ -6,7 +6,7 @@
 set -e  # Exit on error
 
 # Configuration
-DATASET_DIR="../peter/fine-tune3/dataset/augmented1"
+DATASET_DIR="../peter/fine-tune3/dataset/augmented2"
 VAL_DIR="../peter/fine-tune3/dataset/original"  # Validation dataset (set to "" to disable)
 OUTPUT_BASE="./outputs"
 DATASET_OUTPUT="../peter/fine-tune3/dataset/bisenet"
@@ -59,7 +59,7 @@ OUTPUT_DIR="$OUTPUT_BASE/$EXPERIMENT_NAME"
 
 VAL_ARG=""
 if [ -n "$VAL_DIR" ]; then
-    VAL_ARG="--val_dir $VAL_DIR"
+    VAL_ARG="--val_dir $VAL_DIR --val_use_json"
     echo -e "${YELLOW}Using validation set: $VAL_DIR${NC}"
 fi
 
@@ -88,7 +88,7 @@ DIAG_DIR="$OUTPUT_DIR/diagnostics"
 if [ -f "$CHECKPOINT" ]; then
     python diagnose.py \
         --checkpoint "$CHECKPOINT" \
-        --data_dir "$DATASET_OUTPUT" \
+        --data_dir "$VAL_DIR" \
         --n_classes $N_CLASSES \
         --image_size $IMAGE_H $IMAGE_W \
         --visualize \

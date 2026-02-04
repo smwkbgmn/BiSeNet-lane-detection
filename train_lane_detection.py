@@ -54,6 +54,7 @@ class Trainer:
 
         if args.val_dir:
             print(f"Loading validation data from {args.val_dir}")
+            is_binary = (args.n_classes == 2)
             self.val_loader = get_lane_dataloader(
                 root_dir=args.val_dir,
                 batch_size=args.batch_size,
@@ -61,7 +62,9 @@ class Trainer:
                 mode='val',
                 image_size=tuple(args.image_size),
                 n_classes=args.n_classes,
-                use_json=args.use_json
+                use_json=args.val_use_json,
+                binary_mode=is_binary,
+                lane_thickness=10
             )
         else:
             self.val_loader = None
@@ -208,9 +211,14 @@ class Trainer:
         avg_loss = total_loss / len(self.val_loader)
         accuracy = total_correct / total_pixels
 
-        # Calculate mean IoU
-        class_iou = class_iou_sum / (class_count + 1e-8)
-        miou = class_iou.mean().item()
+        # Calculate mean IoU (only over classes that were present)
+        valid_mask = class_count > 0
+        if valid_mask.any():
+            class_iou = class_iou_sum / (class_count + 1e-8)
+            miou = class_iou[valid_mask].mean().item()
+        else:
+            class_iou = class_iou_sum / (class_count + 1e-8)
+            miou = 0.0
 
         print(f"\nValidation Results:")
         print(f"  Loss: {avg_loss:.4f}")
@@ -287,7 +295,7 @@ class Trainer:
                 miou, val_loss = self.validate()
 
                 # Save best model
-                if miou > self.best_miou:
+                if miou >= self.best_miou:
                     self.best_miou = miou
                     self.save_checkpoint(is_best=True)
                     print(f"New best mIoU: {miou:.4f}")
@@ -317,6 +325,8 @@ def parse_args():
                        help='Validation dataset directory')
     parser.add_argument('--use_json', action='store_true',
                        help='Use on-the-fly mask generation from JSON')
+    parser.add_argument('--val_use_json', action='store_true',
+                       help='Use on-the-fly mask generation from JSON for validation set')
 
     # Model
     parser.add_argument('--n_classes', type=int, default=2,
@@ -333,7 +343,7 @@ def parse_args():
                        help='Learning rate')
     parser.add_argument('--weight_decay', type=float, default=5e-4,
                        help='Weight decay')
-    parser.add_argument('--num_workers', type=int, default=4,
+    parser.add_argument('--num_workers', type=int, default=6,
                        help='Number of data loading workers')
 
     # Loss
